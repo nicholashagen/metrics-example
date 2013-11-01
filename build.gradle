@@ -1,0 +1,51 @@
+buildscript {
+	repositories {
+		mavenCentral() 
+		maven { url "http://repo.springsource.org/snapshot" }
+		maven { url "http://repo.springsource.org/milestone" }
+	}
+	
+	dependencies {
+			classpath group:"org.springframework.boot", name:"spring-boot-gradle-plugin", version:"0.5.0.M5"
+	}
+}
+
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'jetty'
+apply plugin: 'spring-boot'
+apply plugin: 'application'
+
+mainClassName = 'com.sample.metrics.Application'
+
+repositories {
+	mavenCentral()
+	maven { url "http://repo.springsource.org/snapshot" }
+	maven { url "http://repo.springsource.org/milestone" }
+}
+
+dependencies {
+    // providedCompile 'javax.servlet:servlet-api:2.5'
+	compile('org.springframework.boot:spring-boot-starter-web:0.5.0.M5') {
+		exclude group:'org.springframework.boot', module:'spring-boot-starter-tomcat'
+	}
+	compile 'org.springframework.boot:spring-boot-starter-actuator:0.5.0.M5'
+	compile 'org.springframework.boot:spring-boot-starter-jetty:0.5.0.M5'
+	compile 'org.springframework.boot:spring-boot-starter-aop:0.5.0.M5'
+	compile 'org.springframework:spring-context-support:4.0.0.M3'
+	compile 'org.apache.tomcat:juli:6.0.13'
+	compile 'org.apache.httpcomponents:httpclient:4.2.5'
+	compile 'org.apache.httpcomponents:httpclient-cache:4.2.5'
+	compile 'com.codahale.metrics:metrics-core:3.0.1'
+	compile 'com.codahale.metrics:metrics-logback:3.0.1'
+	compile 'com.codahale.metrics:metrics-httpclient:3.0.1'
+	compile 'com.codahale.metrics:metrics-jvm:3.0.1'
+	compile 'com.codahale.metrics:metrics-healthchecks:3.0.1'
+	compile 'com.codahale.metrics:metrics-jetty8:3.0.1'
+	compile 'com.ryantenney.metrics:metrics-spring:3.0.0-RC2'
+	compile 'javax.inject:javax.inject:1'
+}
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '1.7'
+}
